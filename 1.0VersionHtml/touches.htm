@@ -36,7 +36,7 @@
                     var finger = touchToFinger(touch);
                     fingers.push(finger);
                 }
-                //璁＄畻涓や釜touch鐐逛箣闂寸殑璺濈
+                //计算两个touch点之间的距离
                 for (var i = 0; i < fingers.length; i++) {
                     var fingerI = fingers[i];
                     if(i == fingers.length-1)break;
@@ -68,7 +68,7 @@
                 //setDebugMsg(h);
                 var target = getTarget(e);
                 var fingers = getTouchFingers(e);
-                //璁＄畻鍚勪釜鎵嬫寚鐨勭Щ鍔ㄩ�熷害鍜屽姞閫熷害
+                //计算各个手指的移动速度和加速度
                 var oldFingers = target.fingers;
                 var continueExec = (fingers && fingers.length && oldFingers && oldFingers.length);
                 setDebugMsg('continueExec is ' + continueExec);
@@ -86,7 +86,7 @@
                     }
                     setDebugMsg('fingerOld is ' + fingerOld);
                     if (fingerOld) {
-                        //璁＄畻x鏂瑰悜閫熷害
+                        //计算x方向速度
                         var timeSpan = (fingerNew.touchTime.getTime() - fingerOld.touchTime.getTime())*.001;
                         var xNew = fingerNew.pageX;
                         var xOld = fingerOld.pageX;
