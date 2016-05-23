@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+	<title>503股票通首页</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<style type="text/css">
+	*{padding:0;margin:0;}
+	#global{width: 100%;height: 850px; margin:0 auto;}
+
+	#titlebar{width: 100%;height: 7%;line-height: 60px;background: black;}
+	#logo{width: 16%;height: 100%;float:left;}
+	#logo img{height: 100%;margin-left: 70%;}
+    #title{width: 12%;height:100%;font-size:25px;font-weight: bold;color: red;float: left;}
+    #search{width: 55%;height: 100%;float:left;}
+    #input{position:relative;top:5px;height:60%; width: 70%;}
+    #btn{position:relative;top:5px;width: 10%;height:60%;font-weight:bold;}
+    #warm{height: 100%;font-size: 15px;line-height: 30px;color:white;float: left;}
+    
+    #navbar{width: 100%;height: 20%;background: azure;}
+    #info{width:80%;height: 100%;float:left;margin-left: 50px;}
+    #info table{width: 100%;height: 100%;font-size: 20px;font-weight: bold;color: red;border-collapse:collapse;text-align: center;}
+    #name td{width:15%;}
+    #data td{width:15%;}
+    #add{width: 10%;height: 100%;float:left;}
+    #add button{width: 100px;height: 40px;margin-top: 60px;margin-left:60px;background:blue;color: white;}
+
+    #mainbody-content{width:100%;height:60%;background:darkgray;}
+
+    #mainbody{width: 60%;height: 60%;background: darkgray;position:absolute;left:10px;}
+    #mainbody table{margin-left:50px;height:20%;width: 70%;text-align: center;}
+    #right-list{width:20%;height:83%;position:absolute;left:1050px;}
+    #right-list-tr{width:100%;height:100%;overflow:auto;border:1px solid darkgray;}
+    #right-list-tr ul li{}
+    #right-list-tr li{margin-right:3px;width:30%;display:inline-block;font-size:15px;list-style: none;}
+    #right-list-tr ul{line-height:30px;border-bottom:1px solid darkgray;padding:3px 10px;}
+   
+    
+    #myframe{margin-left:50px;width:70%;height: 80%;}
+    #myframe iframe{width:100%;height: 95%;}
+    #choice{width:20%;height: 100%;background: yellow;}
+
+    #foot{width: 100%;height:10%;background: black;color: white;top:800px;position:absolute;clear:float;}
+	</style>
+
+	<script>
+	     var code="hq_str_sh"+"000001";
+	     var api="http://hq.sinajs.cn/list=sh"+"000001";
+         var api2="http://hq.sinajs.cn/list=s_sh"+"000001";//用于更新列表
+         var code2="hq_str_s_sh"+"000001";//用于更新列表
+         var elements2;
+         var elements3;//涨跌幅
+         var lastcookie="000001";
+         var ulindex=-1;
+            function sub(){
+                var content = document.getElementById("input");
+                code="hq_str_sh"+content.value;
+	            api="http://hq.sinajs.cn/list=sh"+content.value;
+                code2="hq_str_s_sh"+content.value;
+	            api2="http://hq.sinajs.cn/list=s_sh"+content.value;
+
+              change_tab_code(content.value);
+	            lastcookie=content.value;
+                var parents=document.getElementById("name");
+          	    var list=parents.getElementsByTagName("td");
+	            var parents=document.getElementById("data");
+          	    var list2=parents.getElementsByTagName("td");
+                
+                var script=document.createElement("script");
+                script.src=api;
+                document.body.appendChild(script);
+
+                var script2=document.createElement("script");
+                script2.src=api2;
+                document.body.appendChild(script2);
+
+                alert('搜索成功');
+                
+                var elements=CodeData(code);
+                elements2=elements;
+                elements3=CodeData(code2);
+
+                    //list[0].innerText=elements[0];
+                    document.getElementById("A").innerHTML = elements[0];
+          	    list2[1].innerHTML=elements[4];
+          	    list2[2].innerHTML=elements[5];
+          	    list2[3].innerHTML=elements[1];
+          	    list2[4].innerHTML=elements[2];
+
+                /*$.ajax({
+                    url:"tab.html",
+                    type:"get",
+                    datatype:'json',
+                    data:{
+                       codegp:lastcookie;
+                       }
+                    success:function(data){
+                        alert("发送成功");
+                    }
+
+                });*/
+
+            } 
+            function sub2(value1){
+            	  code="hq_str_sh"+value1;
+	              api="http://hq.sinajs.cn/list=sh"+value1;
+                code2="hq_str_s_sh"+value1;
+	              api2="http://hq.sinajs.cn/list=s_sh"+value1;
+                change_tab_code(value1);
+
+                lastcookie=value1;
+	            
+                var parents=document.getElementById("name");
+          	    var list=parents.getElementsByTagName("td");
+	              var parents=document.getElementById("data");
+          	    var list2=parents.getElementsByTagName("td");
+                
+                var script=document.createElement("script");
+                script.src=api;
+                document.body.appendChild(script);
+
+                var script2=document.createElement("script");
+                script2.src=api2;
+                document.body.appendChild(script2);
+
+                
+                var elements=CodeData(code);
+                elements2=elements;
+                elements3=CodeData(code2);
+
+                    //list[0].innerText=elements[0];
+                    document.getElementById("A").innerHTML = elements[0];
+          	    list2[1].innerHTML=elements[4];
+          	    list2[2].innerHTML=elements[5];
+          	    list2[3].innerHTML=elements[1];
+          	    list2[4].innerHTML=elements[2];
+            }
+
+            function change_tab_code(code){
+              var number = Math.random();
+              number = Math.ceil(number * 100); 
+              var mycode=content_frame.window.document.getElementsByTagName("img");
+              mycode[0].src="http://image.sinajs.cn/newchart/daily/n/sh"+code+".gif?="+number;
+              mycode[1].src="http://image.sinajs.cn/newchart/min/n/sh"+code+".gif?="+number;
+            }
+
+    </script>
+
+    <script>
+        document.write('<scr'+'ipt src='+api+'></scr'+'ipt>');
+    </script>
+
+    <script>
+        document.write('<scr'+'ipt src='+api2+'></scr'+'ipt>');
+    </script>
+
+	<script>
+		function CodeData(code){
+			var elements=eval(code).split(",");
+			return elements;
+		} 
+	</script>
+
+  <script>
+        window.setInterval(reflash,1000); 
+        function reflash() 
+        { 
+                change_tab_code(lastcookie);
+                var parents=document.getElementById("name");
+                var list=parents.getElementsByTagName("td");
+                var parents=document.getElementById("data");
+                var list2=parents.getElementsByTagName("td");
+                
+                var script=document.createElement("script");
+                script.src=api;
+                document.body.appendChild(script);
+
+                var script2=document.createElement("script");
+                script2.src=api2;
+                document.body.appendChild(script2);
+                
+                var elements=CodeData(code);
+                elements2=elements;
+                elements3=CodeData(code2);
+
+                //list[0].innerText=elements[0];
+                document.getElementById("A").innerHTML = elements[0];
+                list2[0].innerHTML=elements[3];
+                list2[1].innerHTML=elements[4];
+                list2[2].innerHTML=elements[5];
+                list2[3].innerHTML=elements[1];
+                list2[4].innerHTML=elements[2];
+        };
+    </script>
+
+</head>
+
+
+
+<body>
+	<div id="global">
+
+	    <div id="titlebar"><!--标题栏-->
+	     <div id="logo"><img src="imgs/logo.png"></div>
+		 <div id="title">503股市通</div>
+		 <div id="search">
+		  <input type="text"  placeholder="请输入股票代码" id="input" style="font-size:18px"></input>
+		  <input type="button" value="搜索" id="btn" onclick="sub()"></input>
+		 </div>
+		 <div id="warm">&nbsp&nbsp&nbsp&nbsp股市有风险<br>&nbsp&nbsp&nbsp&nbsp入市需谨慎</div>
+	    </div>
+	    
+		<div id="navbar"><!--导航栏-->
+		  <div id="info">
+			<table>
+
+			    <script >
+                    var elements=CodeData(code);
+                    elements2=elements;
+                    elements3=CodeData(code2);
+	            </script>
+			    
+
+				<tr id="name">
+				<td><a href="work.html" target=_blank id="A"><script>document.write(elements[0]);</script></a></td>
+				<td>最高</td> 
+				<td>最低</td> 
+				<td>今开</td> 
+				<td>昨收</td>
+				</tr>
+
+				<tr id="data">
+				<td><script type="text/javascript">document.write(elements[3]);</script></td>
+				<td><script type="text/javascript">document.write(elements[4]);</script></td>
+				<td><script type="text/javascript">document.write(elements[5]);</script></td>
+				<td><script type="text/javascript">document.write(elements[1]);</script></td>
+				<td><script type="text/javascript">document.write(elements[2]);</script></td>
+				</tr>
+			</table>
+		  </div>
+
+		  <div id="add"><button>+ 加自选</button></div>
+
+		</div>
+       
+        <div id-"mainbody-content">
+		<div id="mainbody"><!--内容主体-->
+			<iframe style="background: #FFFFFF;" name="content_frame" marginwidth=0 marginheight=0 width=1030 height=545 src="tab.html" frameborder=0></iframe> 
+		   
+    </div>
+		<div id="right-list">
+		    <div id="right-list-tr">
+             <ul style="background:darkgray;">
+                <li>股票名称</li><li>最新价</li><li>涨跌幅</li>
+             </ul>
+            </div>
+		</div>
+		
+        </div>
+		<div id="foot"> <!--尾部-->
+			<small>免责声明：最终解析权归503所有，股市有风险，投资者依此做出的投资风险自行承担！</small><br>
+		    <small>地址：华南师范大学石牌校区西区第二学生宿舍503室</small><br>
+		    <small>联系方式：2013_503@scnu.com</small>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	   window.onload=function(){
+          var list=document.getElementById("right-list-tr");
+          var listcode=new Array();
+          var table=document.getElementById("right-list-tr").getElementsByTagName("ul");
+         
+	     /*for(var i=1;i<table.length;i++){
+	           table[i].onmouseover=function(){this.style.background="#A6FFFF";}
+	           table[i].onmouseout=function(){this.style.background="white";}
+	           /*table[i].onclick=function(){window.open('index.html','newwindow');}
+	     }*/
+         
+          var mylist=document.getElementById("add");
+          /*var listul=list.getElementsByTagName("ul");
+          var listli;
+          for(var i=0;i<listul.length;i++){
+               listli.push(listul[i].getElementsByTagName("li")[0]);
+          }*/
+        
+         mylist.onclick=function(){
+         	
+         	/*for(var i=0;i<listul.length;i++){
+               listli.push(listul[i].getElementsByTagName("li")[0]);
+            }
+            for(var i=0;i<listli.length;i++){
+         		if(listli[i]==elements[0]){
+         			alert("已加入自选");
+         			break;
+         		}
+         	}*/
+          	var ul=document.createElement("ul");
+          
+            //alert(list);
+            //创建td
+            var li1=document.createElement("li");
+            var li2=document.createElement("li");
+            var li3=document.createElement("li");
+            li1.innerHTML=elements2[0];
+          	li2.innerHTML=elements2[3];
+          	li3.innerHTML=elements3[3];
+          	ul.appendChild(li1);
+          	ul.appendChild(li2);
+            ul.appendChild(li3);
+            ulindex++;
+            ul.index=ulindex;
+            
+            listcode.push(lastcookie);
+            ul.onmouseover=function(){this.style.background="#A6FFFF";}
+	          ul.onmouseout=function(){this.style.background="white";}
+	          ul.onclick=function(){sub2(listcode[this.index]);}
+            list.appendChild(ul); 
+            
+            
+         }
+
+         }
+	</script>
+
+
+	
+	
+</body>
+</html>
