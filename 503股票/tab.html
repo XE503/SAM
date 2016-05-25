@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<head>
+
+<title>Page Title</title>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.css" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.3.min.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+function ChangeDiv(divId,divName,zDivCount)
+
+{ 
+ 
+for(i=0;i<zDivCount;i++)
+
+{
+
+document.getElementById(divName+i).style.display="none"; 
+
+}
+
+document.getElementById(divName+divId).style.display="";
+
+}
+
+</script>
+
+</head>
+
+<body>
+<input type="hidden" id="mycode" value="10"></input>
+<div data-role="page">
+
+<div data-role="header" >
+
+<div data-role="navbar" >
+
+<ul >
+
+<li ><a href="#" data-role="button" onclick="ChangeDiv('0','Div_',2)" class="ui-btn-active" >K线图</a></li>
+
+<li ><a href="#" data-role="button" onclick="ChangeDiv('1','Div_',2)" >分时图</a></li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div data-role="content">
+
+<div id="Div_0" >
+<img style="background: #FFFFFF;"  width=1000 height=470 src="http://image.sinajs.cn/newchart/daily/n/sh000001.gif" frameborder=0></img> 
+</div>
+
+<div id="Div_1" style="display:none">
+<img style="background: #FFFFFF;"  width=1000 height=470 src="http://image.sinajs.cn/newchart/min/n/sh000001.gif" frameborder=0></img> 
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

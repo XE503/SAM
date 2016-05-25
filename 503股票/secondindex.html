@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>详细页面</title>
+	<style type="text/css">
+	*{padding:0;margin:0;}
+	 #titlebar{width: 100%;height: 70px;line-height: 60px;background: black;border:1px solid blue;}
+     #logo{width: 16%;height: 100%;float:left;}
+    #logo img{height: 100%;margin-left: 100px;}
+    #title{width: 12%;height:100%;font-size:25px;font-weight: bold;color: red;float: left;}
+    #search{width: 55%;height: 100%;float:left;}
+    #input{position:relative;top:5px;height:60%; width: 70%;}
+    #btn{position:relative;top:5px;width: 10%;height:60%;}
+    #warm{height: 100%;font-size: 15px;line-height: 30px;color:white;float: left;}
+
+	 #navbar{width: 85%;height: 120px;background: #ffffff;background: azure;margin:0 auto;font-family:"Microsoft YaHei";border:1px solid blue;}
+     #navbar strong{font-size:45px;color:red;margin-right:45px;}
+     #navbar span{margin-right:45px;}
+
+     #navbar2{width: 85%;height: 250px;background: #ffffff;background: azure;margin:0 auto;border:1px solid blue;}
+     #info{width:100%;height:100%;}
+     #info ul li{display:inline-block;font-size: 25px;font-weight: bold;font-family:"Microsoft YaHei";text-align:center;}
+     #first-line{width:100%;height:50%;margin:0 auto;}
+     #second-line{width:100%;height:50%;margin:0 auto;}
+     #info li{width:18%;}
+   
+
+
+     #mainbody-content{width:85%;height:570px;background:darkgray;margin:0 auto;border:1px solid blue;}
+     #mainbody{width:100%;height: 100%;background: darkgray;margin:0 auto;}
+    
+
+
+	 #foot{width: 100%;height:70px;background: black;color: white;top:800px;border:1px solid blue;}
+	</style>
+</head>
+<body>
+    <div id="global">
+    	<div id="titlebar"><!--标题栏-->
+        <div id="logo">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="logo2.png"></div>
+         <div id="title">503股市通</div>
+         <div id="search">
+          <input type="text"  placeholder="请输入股票代码" id="input"></input>
+          <input type="button" value="搜索" id="btn" onclick="sub()"></input>
+         </div>
+         <div id="warm">&nbsp&nbsp&nbsp&nbsp股市有风险<br>&nbsp&nbsp&nbsp&nbsp入市需谨慎</div>
+        </div>
+    	<div id="navbar"><!--股票名字-->
+          <h3>上证指数<span>[000001]</span></h3><br>
+          <div><strong>当前价</strong><span>百分数</span><span>百分数</span></div>
+        </div>
+    	<div id="navbar2"><!--股票详细数据 -->
+          <div id="info">
+              <ul id="first-line">
+                <ul id="name">
+                <li><br/>最高</li>
+                <li>最高</li> 
+                <li>最低</li> 
+                <li>今开</li>
+                <li>昨收</li>
+                </ul>
+
+                <ul id="data">
+                <li>3.03</li>
+                <li>3.03</li>
+                <li>3.03</li>
+                <li>3.03</li>
+                <li>3.03</li>
+                </ul>
+             </ul>
+                <hr/>
+             <ul id="second-line">
+                <ul id="name">
+                <li><br/>最高</li>
+                <li>最高</li> 
+                <li>最低</li> 
+                <li>今开</li>
+                <li>昨收</li>
+                </ul>
+
+
+                <ul id="data">
+                <li>3.03</li>
+                <li>3.03</li>
+                <li>3.03</li>
+                <li>3.03</li>
+                <li>3.03</li>
+                </ul>
+            </ul>
+              
+             </div> 
+          </div>
+    	<div id="mainbody-content">
+    	<div id="mainbody"><!--内容主体-->
+			<iframe style="background: #FFFFFF;" name="content_frame" marginwidth=0 marginheight=0 width=1030 height=545 src="secondtab.html" frameborder=0></iframe> 
+		   
+        </div>
+    	</div><!--股票图-->
+    	<div id="foot"><!--尾部-->
+    	    <small>免责声明：最终解析权归503所有，股市有风险，投资者依此做出的投资风险自行承担！</small><br>
+		    <small>地址：华南师范大学石牌校区西区第二学生宿舍503室</small><br>
+		    <small>联系方式：2013_503@scnu.com</small>
+    	</div>
+    </div>
+</body>
+</html>
