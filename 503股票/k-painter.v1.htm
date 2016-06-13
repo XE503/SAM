@@ -146,12 +146,13 @@ blog:http://www.cnblogs.com/yukaizhao/ http://weibo.com/yukaizhao/
                         return normalColor;
                     }
                 }
+                
                 function getTipHtml(x) {
                     var index = me.startIndex + getIndex(x);
                     if (index >= me.data.ks.length) index = me.data.ks.length - 1;
                     if (index < 0) index = 0;
                     var ki = me.data.ks[index];
-                    var tipHtml = '<div><b>' + convertDate(ki.quoteTime) + '</b></div>' +
+                    var tipHtml = '<div><b>' + convertDate(ki.quoteTime)+ '</b></div>' +
                     '昨收价：<font color="' + getPriceColor(ki, ki.preClose) + '">' + toMoney(ki.preClose) + '</font><br/>' +
                     '开盘价：<font color="' + getPriceColor(ki, ki.open) + '">' + toMoney(ki.open) + '</font><br/>' +
                     '最高价：<font color="' + getPriceColor(ki, ki.high) + '">' + toMoney(ki.high) + '</font><br/>' +
@@ -750,8 +751,62 @@ blog:http://www.cnblogs.com/yukaizhao/ http://weibo.com/yukaizhao/
     </canvas>
     <div id="debug"></div>
 
-    <script type="text/javascript" src="k-data.js"></script>
+    <!--script type="text/javascript" src="k-data.js"></script-->
+    
+<script>
+var code="hq_str_sh"+"000001";
+var api="http://hq.sinajs.cn/list=sh"+"000001";
+document.write('<scr'+'ipt src='+api+'></scr'+'ipt>');
+</script>
 
+<script>
+var elements=eval(code).split(",");
+
+var e=[20160519,parseFloat(elements[2]), parseFloat(elements[1]), parseFloat(elements[4]), parseFloat(elements[5]), parseFloat(elements[3]), parseFloat(elements[8]), parseFloat(elements[9])];
+
+var data = [e];
+
+window.setInterval(update,1000); 
+function update(){
+   data.push(e);
+   window.location.Reload();
+}
+
+
+
+//昨收 开盘 最高 最低 收盘 成交量 成交额
+
+function getKLData() {
+    var result = {};
+    var ks = [];
+    for (var i = 0; i < data.length; i++) {
+        var rawData = data[i];
+        //20111215,11.68,11.65,11.76,11.40,11.41,43356655,502325991
+        //日期,昨收,开盘价,高,低，收,量，额
+        var item = {
+            quoteTime: rawData[0],
+            preClose: rawData[1],
+            open: rawData[2],
+            high: rawData[3],
+            low: rawData[4],
+            close: rawData[5],
+            volume: rawData[6],
+            amount: rawData[7]
+        };
+        if (ks.length == 0) {
+            result.low = item.low;
+            result.high = item.high;
+        } else {
+            result.high = Math.max(result.high, item.high);
+            result.low = Math.min(result.low, item.low);
+        }
+        ks.push(item);
+    }
+    result.ks = ks;
+    return result;
+}
+</script>
+ 
     <style>
     pre{padding: 60px 0 0 30px;color: gray;font-size: .8em;line-height: 20px;}
     </style>

@@ -18,12 +18,12 @@
      #navbar strong{font-size:45px;color:red;margin-right:45px;}
      #navbar span{margin-right:45px;}
 
-     #navbar2{width: 85%;height: 250px;background: #ffffff;background: azure;margin:0 auto;border:1px solid blue;}
+     #navbar2{width: 85%;height: 125px;background: #ffffff;background: azure;margin:0 auto;border:1px solid blue;}
      #info{width:100%;height:100%;}
      #info ul li{display:inline-block;font-size: 25px;font-weight: bold;font-family:"Microsoft YaHei";text-align:center;}
      #first-line{width:100%;height:50%;margin:0 auto;}
      #second-line{width:100%;height:50%;margin:0 auto;}
-     #info li{width:18%;}
+     #info li{width:13%;}
    
 
 
@@ -34,9 +34,148 @@
 
 	 #foot{width: 100%;height:70px;background: black;color: white;top:800px;border:1px solid blue;}
 	</style>
+
+    <script>
+         var lastcookie;
+         var code="hq_str_sh"+location.search.substring(1);
+         var api="http://hq.sinajs.cn/list=sh"+location.search.substring(1);
+         var api2="http://hq.sinajs.cn/list=s_sh"+location.search.substring(1);//用于更新列表
+         var code2="hq_str_s_sh"+location.search.substring(1);//用于更新列表
+
+         var elements2;
+         var elements3;//涨跌幅
+         var lastcookie="000001";
+         var newid;
+         var ulindex=-1;
+
+            function getid()  { 
+              var url = location.search; //获取url中"?"符后的字串 
+              lastcookie=url.substring(1);
+            } 
+            function sub(){
+                var content = document.getElementById("input");
+                code="hq_str_sh"+content.value;
+                api="http://hq.sinajs.cn/list=sh"+content.value;
+                code2="hq_str_s_sh"+content.value;
+                api2="http://hq.sinajs.cn/list=s_sh"+content.value;
+
+                change_tab_code(content.value);
+                lastcookie=content.value;
+
+                var parents=document.getElementById("maininfo");
+                var list=parents.getElementsByTagName("span");
+                var list3=parents.getElementsByTagName("strong");
+
+                var parents=document.getElementById("data");
+                var list2=parents.getElementsByTagName("li");
+
+                var parents=document.getElementById("navbar");
+                var list4=parents.getElementsByTagName("h3");
+                
+                var script=document.createElement("script");
+                script.src=api;
+                document.body.appendChild(script);
+
+                var script2=document.createElement("script");
+                script2.src=api2;
+                document.body.appendChild(script2);
+                
+                var elements=CodeData(code);
+                elements2=elements;
+                elements3=CodeData(code2);
+
+                list4[0].innerHTML=elements[0];
+                list3[0].innerHTML=elements[3];
+                list[0].innerHTML=elements3[2];
+                list[1].innerHTML=elements3[3]+"%";
+
+                list2[0].innerHTML=elements[3];
+                list2[1].innerHTML=elements[4];
+                list2[2].innerHTML=elements[5];
+                list2[3].innerHTML=elements[1];
+                list2[4].innerHTML=elements[2];
+                list2[5].innerHTML=elements3[5];
+                list2[6].innerHTML=elements3[4];
+
+            } 
+
+            function change_tab_code(code){
+              var number = Math.random();
+              number = Math.ceil(number * 100); 
+              var mycode=content_frame.window.document.getElementsByTagName("img");
+              mycode[0].src="http://image.sinajs.cn/newchart/daily/n/sh"+code+".gif?="+number;
+              mycode[1].src="http://image.sinajs.cn/newchart/min/n/sh"+code+".gif?="+number;
+              mycode[2].src="http://image.sinajs.cn/newchart/weekly/n/sh"+code+".gif?="+number;
+              mycode[3].src="http://image.sinajs.cn/newchart/monthly/n/sh"+code+".gif?="+number;
+            }
+    </script>
+
+    <script>
+        document.write('<scr'+'ipt src='+api+'></scr'+'ipt>');
+    </script>
+
+    <script>
+        document.write('<scr'+'ipt src='+api2+'></scr'+'ipt>');
+    </script>
+
+    <script>
+        function CodeData(code){
+            var elements=eval(code).split(",");
+            return elements;
+        } 
+    </script>
+
+  <script>
+        window.setInterval(reflash,1000); 
+        window.onload=getid();
+        function reflash() 
+        { 
+                change_tab_code(lastcookie);
+                var parents=document.getElementById("maininfo");
+                var list=parents.getElementsByTagName("span");
+                var list3=parents.getElementsByTagName("strong");
+
+                var parents=document.getElementById("data");
+                var list2=parents.getElementsByTagName("li");
+
+                var parents=document.getElementById("navbar");
+                var list4=parents.getElementsByTagName("h3");
+                
+                var script=document.createElement("script");
+                script.src=api;
+                document.body.appendChild(script);
+
+                var script2=document.createElement("script");
+                script2.src=api2;
+                document.body.appendChild(script2);
+                
+                var elements=CodeData(code);
+                elements2=elements;
+                elements3=CodeData(code2);
+
+                list4[0].innerHTML=elements[0];
+                list3[0].innerHTML=elements[3];
+                list[0].innerHTML=elements3[2];
+                list[1].innerHTML=elements3[3]+"%";
+
+                list2[0].innerHTML=elements[3];
+                list2[1].innerHTML=elements[4];
+                list2[2].innerHTML=elements[5];
+                list2[3].innerHTML=elements[1];
+                list2[4].innerHTML=elements[2];
+                list2[5].innerHTML=elements3[5];
+                list2[6].innerHTML=elements3[4];
+        };
+    </script>
+
 </head>
 <body>
     <div id="global">
+        <script >
+                    var elements=CodeData(code);
+                    elements2=elements;
+                    elements3=CodeData(code2);
+        </script>
     	<div id="titlebar"><!--标题栏-->
         <div id="logo">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="logo2.png"></div>
          <div id="title">503股市通</div>
@@ -47,54 +186,42 @@
          <div id="warm">&nbsp&nbsp&nbsp&nbsp股市有风险<br>&nbsp&nbsp&nbsp&nbsp入市需谨慎</div>
         </div>
     	<div id="navbar"><!--股票名字-->
-          <h3>上证指数<span>[000001]</span></h3><br>
-          <div><strong>当前价</strong><span>百分数</span><span>百分数</span></div>
-        </div>
+          <h3><script type="text/javascript">document.write(elements[0]);</script></h3><br>
+          <div id=maininfo>
+          <strong><script type="text/javascript">document.write(elements[3]);</script></strong>
+          <span><script type="text/javascript">document.write(elements3[2]);</script></span>
+          <span><script type="text/javascript">document.write(elements3[3]+"%");</script></span>
+          </div>
+          </div>
     	<div id="navbar2"><!--股票详细数据 -->
           <div id="info">
               <ul id="first-line">
                 <ul id="name">
-                <li><br/>最高</li>
+
+                <li><br/>当前</li>
                 <li>最高</li> 
                 <li>最低</li> 
                 <li>今开</li>
                 <li>昨收</li>
+                <li>成交额</li>
+                <li>成交量</li>
                 </ul>
 
                 <ul id="data">
-                <li>3.03</li>
-                <li>3.03</li>
-                <li>3.03</li>
-                <li>3.03</li>
-                <li>3.03</li>
+                <li><script type="text/javascript">document.write(elements[3]);</script></li>
+                <li><script type="text/javascript">document.write(elements[4]);</script></li>
+                <li><script type="text/javascript">document.write(elements[5]);</script></li>
+                <li><script type="text/javascript">document.write(elements[1]);</script></li>
+                <li><script type="text/javascript">document.write(elements[2]);</script></li>
+                <li><script type="text/javascript">document.write(elements3[5]);</script></li>
+                <li><script type="text/javascript">document.write(elements3[4]);</script></li>
                 </ul>
-             </ul>
-                <hr/>
-             <ul id="second-line">
-                <ul id="name">
-                <li><br/>最高</li>
-                <li>最高</li> 
-                <li>最低</li> 
-                <li>今开</li>
-                <li>昨收</li>
-                </ul>
-
-
-                <ul id="data">
-                <li>3.03</li>
-                <li>3.03</li>
-                <li>3.03</li>
-                <li>3.03</li>
-                <li>3.03</li>
-                </ul>
-            </ul>
-              
+             </ul>           
              </div> 
           </div>
     	<div id="mainbody-content">
     	<div id="mainbody"><!--内容主体-->
-			<iframe style="background: #FFFFFF;" name="content_frame" marginwidth=0 marginheight=0 width=1030 height=545 src="secondtab.html" frameborder=0></iframe> 
-		   
+			<iframe style="background: #FFFFFF;" name="content_frame" marginwidth=0 marginheight=0 width=100% height=545 src="secondtab.html" frameborder=0></iframe> 
         </div>
     	</div><!--股票图-->
     	<div id="foot"><!--尾部-->
